@@ -1,6 +1,7 @@
 package com.jvm.demo.oom.stack;
 
 /**
+ * JVM栈StackOverFlow的异常
  * @author xianzhixianzhixian
  * @date 2020/11/10 12:23 上午
  */
