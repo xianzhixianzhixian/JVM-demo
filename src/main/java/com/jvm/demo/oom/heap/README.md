@@ -28,3 +28,6 @@
 From幸存区或To幸存区的比例，默认为8，也就是说Eden占新生代的8/10，From幸存区和To幸存区各占新生代的1/10
 
 -XX:+HeapDumpOnOutOfMemoryError 当JVM发生OOM时，自动生成DUMP文件
+
+## 结果分析
+JVM启动参数中配置了 -Xmx和-Xms大小为20M，一个循环中不停地创建新的对象并且这些对象都是存活状态，所以堆内存不够用导致OutOfMemory: Java heap space
