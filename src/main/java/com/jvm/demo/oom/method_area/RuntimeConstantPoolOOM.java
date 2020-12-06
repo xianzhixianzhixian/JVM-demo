@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
+ * 运行时常量池导致的内存溢出异常，使用Set保持String对象的引用导致内存溢出
  * @author xianzhixianzhixian
  * @date 2020/11/23 11:29 下午
  */
