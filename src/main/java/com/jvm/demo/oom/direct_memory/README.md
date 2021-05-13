@@ -1,0 +1,5 @@
+#JVM参数配置
+-Xmx20M -XX:MaxDirectMemorySize=10M
+-Xmx分配堆最大内存，-XX:MaxDirectMemorySize分配直接内存的值，-XX:MaxDirectMemorySize不设置的情况下与堆内存大小保持一致
+
+`直接内存溢出时堆内存dump下来的文件中看不出什么明显异常，如果内存溢出后dump出来的文件大小很小，而程序中直接或间接使用到了DirectMemory（典型的间接使用就是NIO），可以中电建查一下是否为直接内存方面的原因导致的内存溢出`
