@@ -1,5 +1,5 @@
 ## JVM参数配置
--verbose:gc -Xms20M -Xmx20M -Xss160k _-XX:+PrintGCDetails_ -XX:SurvivorRatio=8 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./
+-verbose:gc -Xms20M -Xmx20M -Xss160k -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./
 
 ## 参数释义
 -Xss160k                         设置每个线程栈占用内存大小为160K(The stack size specified is too small, Specify at least 160k)
