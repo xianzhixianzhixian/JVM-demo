@@ -12,14 +12,15 @@ public class TestTenuringDistribution {
     /**
      * -XX:MaxTenuringThreshold=1时，allocation1 = 1M，allocation2 = allocation3 = 2M
      * -XX:MaxTenuringThreshold=15时，allocation1 = allocation2 = 0.25M，allocation3 = 4M
+     * -XX:MaxTenuringThreshold=15时，验证动态 对象年龄判断时，allocation1 = 2M，= allocation2 = allocation3 = 4M
      * @param args
      */
     public static void main(String[] args) {
         byte[] allocation1,allocation2,allocation3;
         //什么时候进入老年带取决于-XX:MaxTenuringThreshold的值
-        allocation1 = new byte[_1MB / 4];
+        allocation1 = new byte[_1MB * 2];
 
-        allocation2 = new byte[_1MB / 4];
+        allocation2 = new byte[_1MB * 4];
         allocation3 = new byte[_1MB * 4];
         allocation3 = null;
         allocation3 = new byte[_1MB * 4];

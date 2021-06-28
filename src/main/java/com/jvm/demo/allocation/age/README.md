@@ -1,4 +1,4 @@
-#验证长期存活对象进入老年带
+#验证长期存活对象进入老年带，以及动态对象年龄判定
 JVM参数：-XX:+UseParNewGC -verbose:gc -Xms20M -Xmx20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8 -XX:MaxTenuringThreshold=1 -XX:+PrintTenuringDistribution
 参数释义：
 -XX:+UseParNewGC                 将新生代垃圾收集器设置为ParNew
@@ -41,3 +41,23 @@ Desired survivor size 524288 bytes, new threshold 1 (max 15)
   class space    used 368K, capacity 388K, committed 512K, reserved 1048576K
   
 可以看到经过一次Minor GC后eden区存活的对象被移动到了from区
+
+#-XX:MaxTenuringThreshold=15，动态 对象年龄判断
+[GC (Allocation Failure) [ParNew
+Desired survivor size 524288 bytes, new threshold 15 (max 15)
+- age   1:     429968 bytes,     429968 total
+  : 7868K->433K(9216K), 0.0139436 secs] 7868K->6577K(19456K), 0.0139756 secs] [Times: user=0.01 sys=0.00, real=0.01 secs]
+  [GC (Allocation Failure) [ParNew: 4529K->4529K(9216K), 0.0000160 secs][Tenured: 6144K->6562K(10240K), 0.0022846 secs] 10673K->6562K(19456K), [Metaspace: 3307K->3307K(1056768K)], 0.0023342 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+  Heap
+  par new generation   total 9216K, used 4178K [0x00000007bec00000, 0x00000007bf600000, 0x00000007bf600000)
+  eden space 8192K,  51% used [0x00000007bec00000, 0x00000007bf014930, 0x00000007bf400000)
+  from space 1024K,   0% used [0x00000007bf500000, 0x00000007bf500000, 0x00000007bf600000)
+  to   space 1024K,   0% used [0x00000007bf400000, 0x00000007bf400000, 0x00000007bf500000)
+  tenured generation   total 10240K, used 6562K [0x00000007bf600000, 0x00000007c0000000, 0x00000007c0000000)
+  the space 10240K,  64% used [0x00000007bf600000, 0x00000007bfc68ba0, 0x00000007bfc68c00, 0x00000007c0000000)
+  Metaspace       used 3314K, capacity 4496K, committed 4864K, reserved 1056768K
+  class space    used 368K, capacity 388K, committed 512K, reserved 1048576K
+
+  
+HotSpot虚拟机并不是要求对象的年龄达到MaxTenuringThreshold所要求的值后才能到达老年带，当新生代中年龄相同的对象占用内存大小大于survivor（from或to）大小的一半后，年
+龄大于等于该年龄的对象就能直接进入老年带；本例中存活的allocation1、allocation2占用内存6M > 512K -- from/to区的一半且年龄都为1，直接进入老年带
