@@ -6,7 +6,7 @@ package com.jvm.demo.allocation.old;
  * @author xianzhixianzhixian
  * @date 2021/6/9 23:00
  */
-public class TestPretneureSizeThreshold {
+public class PretneureSizeThreshold {
 
     private static final int _1MB = 1024 * 1024;
 
